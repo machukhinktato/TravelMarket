@@ -4,4 +4,6 @@ from .views import mainapp
 
 urlpatterns = [
     path('', mainapp),
+    path('products', mainapp),
+    path()
 ]
