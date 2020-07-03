@@ -2,5 +2,17 @@
 {% load static %}
 
 {% block content %}
-
+    {% for acc in accommodations %}
+        <div class="block">
+            <a href="#">
+                <img src="/media/{{ acc.image }}" alt="{{ acc.short_desc }}">
+                <div class="text">
+                    <h3>{{ acc.country.name }}</h3>
+                    <h4>{{ acc.name }}</h4>
+                    <p>{{ acc.description }}</p>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+    
 {% endblock %}
