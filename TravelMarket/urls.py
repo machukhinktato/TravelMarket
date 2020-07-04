@@ -19,12 +19,12 @@ from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+import mainapp.views as mainapp
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('mainapp.urls')),
-    # path('products/', include('mainapp.urls')),
+    path('', mainapp.main, name='main'),
+    path('accommodations/', include('mainapp.urls', namespace='acc')),
 ]
 
 if settings.DEBUG:
