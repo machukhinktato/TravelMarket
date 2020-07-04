@@ -24,7 +24,7 @@ import mainapp.views as mainapp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp.main, name='main'),
-    path('accommodations/', include('mainapp.urls', namespace='acc')),
+    path('list_of_accommodations/', include('mainapp.urls', namespace='acc')),
 ]
 
 if settings.DEBUG:
