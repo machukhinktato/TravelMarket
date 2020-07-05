@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp.main, name='main'),
     path('list_of_accommodations/', include('mainapp.urls', namespace='acc')),
+    path('auth/', include('authapp.urls', namespace='auth'))
 ]
 
 if settings.DEBUG:
