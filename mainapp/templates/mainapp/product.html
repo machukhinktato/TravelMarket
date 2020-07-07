@@ -9,7 +9,9 @@
         <div class="details-products">
             <div class="details-slider">
                 <div class="slider-product">
-                    <img src="/media/{{ list_of_accommodations.image }}">
+                    {% for acc in list_of_accommodations %}
+                        <img src="/media/{{ acc.image }}">
+                    {% endfor %}
                 </div>
                 <div class="slider-control">
                     <div class="block">
