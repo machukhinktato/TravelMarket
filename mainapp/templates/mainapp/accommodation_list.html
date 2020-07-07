@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'mainapp/base.html' %}
+{% load static %}
 
-</body>
-</html>
+
+{% block content %}
+  <div class="details">
+{#    <div class="links clearfix">#}
+{#      {% include 'mainapp/includes/inc_categories_menu.html' %}#}
+{#    </div>#}
+
+    <div class="products_list">
+      <div class="title clearfix">
+        <h2>
+          Категория: "{{ country.name|title }}"
+        </h2>
+      </div>
+      <div class="category-products clearfix">
+
+        {% for acc in list_of_accommodations %}
+          <div class="block">
+            <a href="#">
+              <img src="/media/{{ acc.image }}" alt="product">
+              <div class="text">
+                <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                  <h4>{{ acc.name }}</h4>
+                  <p>{{ acc.description }}</p>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+  <div class="clr"></div>
+
+{% endblock %}

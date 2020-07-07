@@ -28,7 +28,7 @@ def accommodations(request, pk=None):
             'country':country,
             'accs': accs,
         }
-        return render(request, 'mainapp/product.html', content)
+        return render(request, 'mainapp/accommodation_list.html', content)
 
     same_accs = Accommodation.objects.all()[3:5]
 
