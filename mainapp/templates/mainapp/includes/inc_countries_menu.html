@@ -1,0 +1,20 @@
+<ul class="links-menu">
+  <li>
+    <a href="{% url 'acc:accommodations' 0 %}"
+       class="{% if request.resolver_match.kwargs.pk == '0' %}
+                active
+              {% endif %}">
+      все
+    </a>
+  </li>
+  {% for link in list_of_accommodations %}
+    <li>
+      <a href="{% url 'acc:accommodations' link.pk %}"
+         class="{% if request.resolver_match.kwargs.pk|add:'0' == link.pk %}
+                  active
+                {% endif %}">
+        {{ link.country }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
