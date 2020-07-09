@@ -14,6 +14,7 @@ class ShopUserLoginForm(AuthenticationForm):
         super(ShopUserLoginForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+            field.help_text = ' '
 
 
 class ShopUserRegisterForm(UserCreationForm):
@@ -27,7 +28,7 @@ class ShopUserRegisterForm(UserCreationForm):
             super().__init__(*args, **kwargs)
             for field_name, field in self.fields.items():
                 field.widget.attrs['class'] = 'form-control'
-                field.help_text = ''
+                field.help_text = ' '
 
         def clean_age(self):
             data = self.cleaned_data['age']
@@ -49,7 +50,7 @@ class ShopUserEditForm(UserChangeForm):
             super().__init__(self, *args, **kwargs)
             for field_name, field in self.fields.items():
                 field.widget.attrs['class'] = 'form-control'
-                field.help_text = ''
+                field.help_text = ' '
                 if field_name == 'password':
                     field.widget = forms.HiddenInput()
 
