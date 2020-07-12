@@ -20,7 +20,7 @@ def basket_add(request, pk):
     basket.staying += 1
     basket.save()
 
-    return HttpResponseRedirect(request.META.get('HTTP REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def basket_remove(request, pk):
