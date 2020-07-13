@@ -11,3 +11,7 @@ class Basket(models.Model):
     accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE)
     staying = models.PositiveIntegerField(verbose_name='сутки', default=0)
     add_datetime = models.DateTimeField(verbose_name='время', auto_now_add=True)
+
+@property
+def accommodation_cost(self):
+    return self.accommodation.price * self.staying
