@@ -21,7 +21,7 @@ def accommodation_cost(self):
 @property
 def total_nights(self):
     _accommodation = Basket.objects.filter(user=self.user)
-    _total_nights = sum(list(map(lambda x: x.availability, _accommodation)))
+    _total_nights = sum(list(map(lambda x: x.nights, _accommodation)))
     return _total_nights
 
 
