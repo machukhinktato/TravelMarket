@@ -50,7 +50,11 @@
 
         <a href="{% url 'basket:view' %}" class="basket">
             <span>
-                {% if basket %} {{ basket|length }} {% endif %}
+                {% if basket %}
+                    {{ basket|length }}
+                    {{ basket.0.totatl_cost|floatformat:0 }} руб
+                    ({{ basket.0.total_nights }} ночей)
+                {% endif %}
             </span>
         </a>
 

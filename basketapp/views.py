@@ -17,7 +17,7 @@ def basket_add(request, pk):
     if not basket:
         basket = Basket(user=request.user, accommodation=accommodation)
 
-    basket.staying += 1
+    basket.nights += 1
     basket.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
