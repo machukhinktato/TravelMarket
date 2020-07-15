@@ -6,7 +6,15 @@ from mainapp.models import Accommodation
 
 
 def basket(request):
-    content = {}
+    title = 'корзина'
+    basket_items = Basket.objects.filter(
+        user=request.user).order_by('accommodation__country')
+
+    content = {
+        'title': title,
+        'basket_items': basket_items,
+    }
+
     return render(request, 'basketapp/basket.html', content)
 
 
@@ -24,5 +32,7 @@ def basket_add(request, pk):
 
 
 def basket_remove(request, pk):
-    content = {}
-    return render(request, 'basketapp/basket.html', content)
+    basket_record = get_object_or_404(Basket, pk=pk)
+    basket_record.delete()
+
+    return render(request, 'basketapp/basket.html')
