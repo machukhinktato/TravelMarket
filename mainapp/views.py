@@ -10,6 +10,17 @@ from basketapp.models import Basket
 def main(request):
     return render(request, 'mainapp/index.html')
 
+def accommodation(request, pk):
+    title = 'продукты'
+
+    content = {
+        'title': title,
+        'links_menu': ListOfCountries.objects.all(),
+        'accommodation': get_object_or_404(Accommodation, pk=pk),
+        'basket': get_basket(request.user),
+    }
+
+    return render(request, 'mainapp/accommodation_details.html', content)
 
 def accommodations(request, pk=None):
     title = 'размещение'

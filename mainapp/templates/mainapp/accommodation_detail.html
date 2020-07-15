@@ -1,0 +1,48 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="details">
+        <div class="links clearfix">
+            {% include 'mainapp/includes/inc_countries_menu.html' %}
+        </div>
+        <div class="details-products">
+            <div class="details-slider">
+                <div class="slider-product">
+                    <img src="/media/{{ accommodation.image }}"
+                         alt="{{ accommodation.short_desc }}">
+                </div>
+                <div class="slider-control">
+                    <div class="block">
+                        <a href="#">
+                            <img src="/media/{{ accommodation.image }}" alt="вариант 1">
+                        </a>
+                    </div>
+                    <div class="block">
+                        <a href="#">
+                            <img src="/media/{{ accommodation.image }}" alt="вариант 2">
+                        </a>
+                    </div>
+                    <div class="block">
+                        <a href="#">
+                            <img src="/media/{{ accommodation.image }}" alt="вариант 3">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="description">
+                <h3 class="big-bold">{{ accommodation.name }}</h3>
+                <br>
+                <p class="price">{{ accommodation.price }}</p>
+                <a href="{% url 'basket:add' accommodation.pk %}" class="red-button">
+                    заказать
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+                <div class="description-text">
+                    {{ accommodation.image }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr"></div>
+{% endblock %}
