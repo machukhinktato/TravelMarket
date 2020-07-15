@@ -50,7 +50,7 @@ def accommodations(request, pk=None):
         'basket': basket,
     }
 
-    return render(request, 'mainapp/product.html', content)
+    return render(request, 'mainapp/accommodations.html', content)
 
 
 def get_basket(user):
