@@ -1,0 +1,35 @@
+{% extends 'basketapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="basket-list">
+    {% for basket_item in basket_items %}
+        <div class="basket_record">
+            <img src="/media/{{ basket_item.accommodation.image }}"
+                 alt="basket_item.accommodation.short_desc }}">
+        <span class="category_name">{{ basket_item.accommodation.country.name }}</span>
+        <span class="product_name">{{ basket_item.accommodation.name }}</span>
+        <span class="product_price">{{ basket_item.accommodation.price }}&nbsp;руб</span>
+            <input type="number" name="{{ basket_item.pk }}"
+                   min="0"
+                   value="{{ basket_item.nights }}">
+        <span class="product_price">{{ basket_item.price }}&nbsp;руб</span>
+        <button class="btn btn-round">
+            <a href="{% url 'basket:remove' basket_item.pk %}" class="">удалить</a>
+        </button>
+        </div>
+    {% endfor %}
+    {% if basket_items %}
+        <div class="summary">
+        Забронировано {{ basket_items.0.name }}
+            {{ basket_items.0.total_nights }}
+        {{ basket_items.0.total_cost }}
+        </div>
+    {% endif %}
+
+    <button class="btn btn-round">
+        <a href="{% url 'main' %}">на главную</a>
+    </button>
+
+    </div>
+{% endblock %}
