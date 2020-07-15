@@ -39,13 +39,13 @@ def accommodations(request, pk=None):
         }
         return render(request, 'mainapp/accommodation_list.html', content)
 
-    hot_offers = get_hot_offers()
-    same_accommodations = get_same_accommodations(hot_offers)
+    hot_offer = get_hot_offer()
+    same_accommodations = get_same_accommodations(hot_offer)
 
     content = {
         'title': title,
         'list_of_accommodations': list_of_accommodations,
-        'hot_offers': hot_offers,
+        'hot_offer': hot_offer,
         'same_accommodations': same_accommodations,
         'basket': basket,
     }
@@ -60,7 +60,7 @@ def get_basket(user):
         return []
 
 
-def get_hot_offers():
+def get_hot_offer():
     accommodations = Accommodation.objects.all()
 
     return random.sample(list(accommodations), 1)[0]

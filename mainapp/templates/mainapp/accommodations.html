@@ -10,22 +10,22 @@
             <div class="details-slider">
                 <div class="slider-product">
                     {% for acc in list_of_accommodations %}
-                        <img src="/media/{{ acc.image }}">
+                        <img src="/media/{{ hot_offer.image }}">
 
                         </div>
                         <div class="slider-control">
                             <div class="block">
-                                <a href="#"><img src="/static/img/controll.jpg" alt="">
+                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
                                     <div class="text"></div>
                                 </a>
                             </div>
                             <div class="block">
-                                <a href="#"><img src="/static/img/controll1.jpg" alt="">
+                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
                                     <div class="text"></div>
                                 </a>
                             </div>
                             <div class="block">
-                                <a href="#"><img src="/static/img/controll2.jpg" alt="">
+                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
                                     <div class="text"></div>
                                 </a>
                             </div>
@@ -33,14 +33,14 @@
                         </div>
 
                         <div class="description">
-                            <h3 class="big-bold">Отличный отель</h3>
+                            <h3 class="big-bold">{{ hot_offer.name }}</h3>
                             <h3 class="red">горячее предложение</h3>
-                            <p class="price"> {{ acc.price }} <span>руб</span></p>
+                            <p class="price"> {{ hot_offer.price }} <span>руб</span></p>
                             <a href="#" class="red-button">
                                 забронировать <i class="fa fa-chevron-right" aria-hidden="true"></i>
                             </a>
                             <div class="description-text">
-                                {{ acc.short_desc }}
+                                {{ hot_offer.description }}
                             </div>
                         </div>
                         </div>
