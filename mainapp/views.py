@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+import random
 from .models import ListOfCountries
 from .models import Accommodation
 from basketapp.models import Basket
@@ -14,17 +15,18 @@ def accommodations(request, pk=None):
     title = 'размещение'
     list_of_accommodations = Accommodation.objects.all()[:3]
 
-    basket = []
+    basket = get_basket(request.user)
+
     if request.user.is_authenticated:
         basket = Basket.objects.filter(user=request.user)
 
     if pk is not None:
         if pk == 0:
-            accs = Accommodation.objects.all().order_by('price')
+            accommodations = Accommodation.objects.all().order_by('price')
             country = {'name': 'все'}
         else:
             country = get_object_or_404(ListOfCountries, pk=pk)
-            accs = Accommodation.objects.filter(
+            accommodations = Accommodation.objects.filter(
                 country__pk=pk
             ).order_by('price')
 
@@ -32,19 +34,40 @@ def accommodations(request, pk=None):
             'title': title,
             'list_of_accommodations': list_of_accommodations,
             'country': country,
-            'accs': accs,
+            'accommodations': accommodations,
             'basket': basket,
         }
         return render(request, 'mainapp/accommodation_list.html', content)
 
-    same_accs = Accommodation.objects.all()[3:5]
+    hot_offers = get_hot_offers()
+    same_accommodations = get_same_accommodations(hot_offers)
 
     content = {
         'title': title,
         'list_of_accommodations': list_of_accommodations,
-        'same_accs': same_accs,
+        'hot_offers': hot_offers,
+        'same_accommodations': same_accommodations,
         'basket': basket,
     }
 
-
     return render(request, 'mainapp/product.html', content)
+
+
+def get_basket(user):
+    if user.is_authenticated:
+        return Basket.objects.filter(user=user)
+    else:
+        return []
+
+
+def get_hot_offers():
+    accommodations = Accommodation.objects.all()
+
+    return random.sample(list(accommodations), 1)[0]
+
+
+def get_same_accommodations(hot_offers):
+    same_offers = Accommodation.objects.filter(
+        country=hot_offers.country).exclude(pk=hot_offers.pk)[:3]
+
+    return same_offers
