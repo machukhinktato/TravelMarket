@@ -13,20 +13,20 @@ class Basket(models.Model):
     add_datetime = models.DateTimeField(verbose_name='время', auto_now_add=True)
 
 
-@property
-def accommodation_cost(self):
-    return self.accommodation.price * self.nights
+    @property
+    def accommodation_cost(self):
+        return self.accommodation.price * self.nights
 
 
-@property
-def total_nights(self):
-    _accommodation = Basket.objects.filter(user=self.user)
-    _total_nights = sum(list(map(lambda x: x.nights, _accommodation)))
-    return _total_nights
+    @property
+    def total_nights(self):
+        _accommodation = Basket.objects.filter(user=self.user)
+        _total_nights = sum(list(map(lambda x: x.nights, _accommodation)))
+        return _total_nights
 
 
-@property
-def total_cost(self):
-    _accommodation = Basket.objects.filter(user=self.user)
-    _total_cost = sum(list(map(lambda  x: x.accommodation_cost, _accommodation)))
-    return _total_cost
+    @property
+    def total_cost(self):
+        _accommodation = Basket.objects.filter(user=self.user)
+        _total_cost = sum(list(map(lambda  x: x.accommodation_cost, _accommodation)))
+        return _total_cost
