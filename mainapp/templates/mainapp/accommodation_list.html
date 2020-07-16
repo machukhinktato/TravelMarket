@@ -18,7 +18,7 @@
 
         {% for acc in list_of_accommodations %}
           <div class="block">
-            <a href="{% url 'basket:add' acc.pk %}">
+            <a href="{% url 'acc:accommodation' acc.pk %}">
               <img src="/media/{{ acc.image }}" alt="product">
               <div class="text">
                 <img src="{% static 'img/icon-hover.png' %}" alt="hover">

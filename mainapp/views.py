@@ -10,6 +10,7 @@ from basketapp.models import Basket
 def main(request):
     return render(request, 'mainapp/index.html')
 
+
 def accommodation(request, pk):
     title = 'продукты'
 
@@ -21,6 +22,7 @@ def accommodation(request, pk):
     }
 
     return render(request, 'mainapp/accommodation_details.html', content)
+
 
 def accommodations(request, pk=None):
     title = 'размещение'

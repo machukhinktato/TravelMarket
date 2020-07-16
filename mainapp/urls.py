@@ -6,6 +6,6 @@ app_name = 'mainapp'
 
 urlpatterns = [
     path('', mainapp.accommodations, name='index'),
-    path('country/<int:pk>/', mainapp.accommodations, name='country'),
-    path('accommodation/<int:pk>/', mainapp.accommodations, name='accommodations'),
+    path('accommodations/<int:pk>/', mainapp.accommodations, name='accommodations'),
+    path('accommodation/<int:pk>/', mainapp.accommodation, name='accommodation'),
 ]
