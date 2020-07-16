@@ -18,5 +18,4 @@ urlpatterns = [
     path('accommodation/read/<int:pk>/', adminapp.accommodation_read, name='accommodation_read'),
     path('accommodation/update/<int:pk>/', adminapp.accommodation_update, name='accommodation_update'),
     path('accommodation/delete/<int:pk>/', adminapp.accommodation_delete, name='accommodation_delete'),
-
 ]
