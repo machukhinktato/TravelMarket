@@ -24,6 +24,11 @@ def basket(request):
 
 @login_required
 def basket_add(request, pk):
+
+    if 'login' in request.META.get('HTTP_REFERER'):
+        return HttpResponseRedirect(reverse('acc:accommodations', args=[pk]))
+        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
     accommodation = get_object_or_404(Accommodation, pk=pk)
     basket = Basket.objects.filter(user=request.user, accommodation=accommodation).first()
 
@@ -33,9 +38,7 @@ def basket_add(request, pk):
     basket.nights += 1
     basket.save()
 
-    if 'login' in request.META.get('HTTP_REFERER'):
-        return HttpResponseRedirect(reverse('acc:accommodation', args=[pk]))
-
+    # return HttpResponseRedirect(reverse('acc:accommodation', args=[pk]))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
