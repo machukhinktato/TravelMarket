@@ -31,8 +31,14 @@
                         {{ user.name|default:'пользователь' }}
                     </a>
                 </li>
-
             {% endif %}
+
+            {% if user.is_superuser %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin:users' %}">админка</a>
+                </li>
+            {% endif %}
+
             <li class="nav-item">
                 {% if user.is_authenticated %}
                     <a class="nav-link" href="{% url 'auth:logout' %}">выйти</a>
