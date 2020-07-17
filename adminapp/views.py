@@ -8,6 +8,7 @@ from mainapp.models import ListOfCountries
 from authapp.models import ShopUser
 from authapp.forms import ShopUserRegisterForm
 from adminapp.forms import ShopUserAdminEditForm
+from adminapp.forms import AccommodationEditForm
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -137,13 +138,31 @@ def accommodation_create(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_read(request, pk):
-    pass
-
+    title = 'проукт/подробнее'
+    accommodation = get_object_or_404(Accommodation, pk=pk)
+    content = {
+        'title': title,
+        'accommodation': accommodation,
+    }
+    return render(request, 'adminapp/product_read.html', content)
 
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_update(request, pk):
-    pass
-
+    title = 'проукт/создание'
+    country = get_object_or_404(ListOfCountries, pk=pk)
+    if request.method == 'POST':
+        accommodation_form = AccommodationEditForm(request.POST, request.FILES)
+        if accommodation_form.is_valid():
+            accommodation_form.save() #test cleaned_data
+            return HttpResponseRedirect(reverse('admin:accommodations', args=[pk]))
+    else:
+        accommodation_form = AccommodationEditForm(initial={'country':country})
+        content = {
+            'title': title,
+            'update_form': accommodation_form,
+            'country': country,
+        }
+        return render(request, 'adminapp/accommodation_update.html', content)
 
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_delete(request, pk):
