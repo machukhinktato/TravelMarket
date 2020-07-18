@@ -163,19 +163,22 @@ def accommodation_read(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_update(request, pk):
-    title = 'размещение/создание'
-    country = get_object_or_404(ListOfCountries, pk=pk)
+    title = 'размещение/редактирование'
+    edit_accommodation = get_object_or_404(Accommodation, pk=pk)
+
     if request.method == 'POST':
-        accommodation_form = AccommodationEditForm(request.POST, request.FILES)
-        if accommodation_form.is_valid():
-            accommodation_form.save()  # test cleaned_data
-            return HttpResponseRedirect(reverse('admin:accommodations', args=[pk]))
+        accommodation_edit_form = AccommodationEditForm(
+            request.POST, request.FILES, instance=edit_accommodation)
+        if accommodation_edit_form.is_valid():
+            accommodation_edit_form.save()  # test cleaned_data
+            return HttpResponseRedirect(
+                reverse('admin:accommodation_update', args=[edit_accommodation.pk]))
     else:
-        accommodation_form = AccommodationEditForm(initial={'country': country})
+        accommodation_edit_form = AccommodationEditForm(initial=edit_accommodation)
         content = {
             'title': title,
             'update_form': accommodation_form,
-            'country': country,
+            'country': edit_accommodation.country,
         }
         return render(request, 'adminapp/accommodation_update.html', content)
 
