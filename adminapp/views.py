@@ -135,7 +135,7 @@ def accommodations(request, pk):
 def accommodation_create(request, pk):
     title = 'размещение/создание'
     country = get_object_or_404(ListOfCountries, pk=pk)
-    if request.method  == 'POST':
+    if request.method == 'POST':
         accommodation_form = AccommodationEditForm(request.POST, request.FILES)
         if accommodation_form.is_valid():
             accommodation_form.save()
@@ -143,7 +143,7 @@ def accommodation_create(request, pk):
     else:
         accommodation_form = AccommodationEditForm(initial={'country': country})
     content = {
-        'title':title,
+        'title': title,
         'update_form': accommodation_form,
         'country': country,
     }
@@ -160,6 +160,7 @@ def accommodation_read(request, pk):
     }
     return render(request, 'adminapp/product_read.html', content)
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_update(request, pk):
     title = 'размещение/создание'
@@ -167,10 +168,10 @@ def accommodation_update(request, pk):
     if request.method == 'POST':
         accommodation_form = AccommodationEditForm(request.POST, request.FILES)
         if accommodation_form.is_valid():
-            accommodation_form.save() #test cleaned_data
+            accommodation_form.save()  # test cleaned_data
             return HttpResponseRedirect(reverse('admin:accommodations', args=[pk]))
     else:
-        accommodation_form = AccommodationEditForm(initial={'country':country})
+        accommodation_form = AccommodationEditForm(initial={'country': country})
         content = {
             'title': title,
             'update_form': accommodation_form,
@@ -178,7 +179,18 @@ def accommodation_update(request, pk):
         }
         return render(request, 'adminapp/accommodation_update.html', content)
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_delete(request, pk):
     title = 'размещение/удаление'
+    accommodation = get_object_or_404(Accommodation, pk=pk)
 
+    if request.method == 'POST':
+        accommodation.is_active = False
+        accommodation.save()
+        return HttpResponseRedirect(reverse('admin:accommodations', args=[accommodation.country.pk]))
+    content = {
+        'title': title,
+        'accommodation_to_delete': accommodation,
+    }
+    return render(request, 'adminapp/accommodation_delete.html', content)
