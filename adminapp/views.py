@@ -133,12 +133,26 @@ def accommodations(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_create(request, pk):
-    pass
+    title = 'размещение/создание'
+    country = get_object_or_404(ListOfCountries, pk=pk)
+    if request.method  == 'POST':
+        accommodation_form = AccommodationEditForm(request.POST, request.FILES)
+        if accommodation_form.is_valid():
+            accommodation_form.save()
+            return HttpResponseRedirect(reverse('admin:accommodations', args=[pk]))
+    else:
+        accommodation_form = AccommodationEditForm(initial={'country': country})
+    content = {
+        'title':title,
+        'update_form': accommodation_form,
+        'country': country,
+    }
+    return render(request, 'adminapp/product_update.html')
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_read(request, pk):
-    title = 'проукт/подробнее'
+    title = 'размещение/подробнее'
     accommodation = get_object_or_404(Accommodation, pk=pk)
     content = {
         'title': title,
@@ -148,7 +162,7 @@ def accommodation_read(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_update(request, pk):
-    title = 'проукт/создание'
+    title = 'размещение/создание'
     country = get_object_or_404(ListOfCountries, pk=pk)
     if request.method == 'POST':
         accommodation_form = AccommodationEditForm(request.POST, request.FILES)
@@ -166,4 +180,5 @@ def accommodation_update(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def accommodation_delete(request, pk):
-    pass
+    title = 'размещение/удаление'
+
