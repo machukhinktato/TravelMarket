@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 import random
 from .models import ListOfCountries
 from .models import Accommodation
@@ -24,10 +27,9 @@ def accommodation(request, pk):
     return render(request, 'mainapp/accommodation_details.html', content)
 
 
-def accommodations(request, pk=None):
+def accommodations(request, pk=None, page=1):
     title = 'размещение'
-    list_of_accommodations = Accommodation.objects.all()[:3]
-
+    list_of_accommodations = Accommodation.objects.filter(is_active=True)
     basket = get_basket(request.user)
 
     if request.user.is_authenticated:
@@ -35,19 +37,29 @@ def accommodations(request, pk=None):
 
     if pk is not None:
         if pk == 0:
-            accommodations = Accommodation.objects.all().order_by('price')
-            country = {'name': 'все'}
+            country = {'pk': 0, 'name': 'все'}
+            accommodations = Accommodation.objects.filter(
+                is_active=True, country__is_active=True
+            ).order_by('price')
         else:
             country = get_object_or_404(ListOfCountries, pk=pk)
             accommodations = Accommodation.objects.filter(
-                country__pk=pk
+                country__pk=pk, is_active=True, country__is_active=True
             ).order_by('price')
+
+        paginator = Paginator(accommodations, 2)
+        try:
+            accommodations_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            accommodations_paginator = paginator.page(1)
+        except EmptyPage:
+            accommodations_paginator = paginator.page(paginator.num_pages)
 
         content = {
             'title': title,
             'list_of_accommodations': list_of_accommodations,
             'country': country,
-            'accommodations': accommodations,
+            'accommodations': accommodations_paginator,
             'basket': basket,
         }
         return render(request, 'mainapp/accommodation_list.html', content)
@@ -58,7 +70,7 @@ def accommodations(request, pk=None):
     content = {
         'title': title,
         'list_of_accommodations': list_of_accommodations,
-        'hot_offer': hot_offer,
+        'country': country,
         'same_accommodations': same_accommodations,
         'basket': basket,
     }
