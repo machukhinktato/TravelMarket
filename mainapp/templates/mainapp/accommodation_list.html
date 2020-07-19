@@ -13,6 +13,18 @@
         <h2>
           Категория: "{{ country.name|title }}"
         </h2>
+          <div class="paginator">
+              {% if accommodations.has_previous %}
+                  <a href="{% url 'acc:page' country.pk accommodations.previous_page_number %}"></a>
+              {% endif %}
+          <span class="current">
+              страница {{ accommodations.number }}
+              {{ accommodations.paginator.num_pages }}
+          </span>
+          {% if accommodations.has_next %}
+              <a href="{% url 'acc:page' country.pk accommodations.next_page_number %}"></a>
+          {% endif %}
+          </div>
       </div>
       <div class="category-products clearfix">
 
