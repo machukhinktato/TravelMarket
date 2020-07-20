@@ -3,7 +3,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
 from mainapp.models import Accommodation
 from mainapp.models import ListOfCountries
@@ -20,6 +23,26 @@ class UsersListView(ListView):
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self,*args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+
+class CountryCrerateView(CreateView):
+    model = ListOfCountries
+    template_name = 'adminapp/country_update.html'
+    success_url = reverse_lazy('admin:countries')
+    fields = '__all__'
+
+
+class CountryUpdateView(UpdateView):
+    model = ListOfCountries
+    template_name = 'adminapp/country_update.html'
+    success_url = reverse_lazy('admin:countries')
+    fields = '__all__'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'страны.редактирование'
+
+        return context
 
 @user_passes_test(lambda u: u.is_superuser)
 def users(request):
