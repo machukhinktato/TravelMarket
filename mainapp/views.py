@@ -70,7 +70,7 @@ def accommodations(request, pk=None, page=1):
     content = {
         'title': title,
         'list_of_accommodations': list_of_accommodations,
-        'country': country,
+        'hot_offer': hot_offer,
         'same_accommodations': same_accommodations,
         'basket': basket,
     }
