@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
+from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from mainapp.models import Accommodation
 from mainapp.models import ListOfCountries
@@ -57,6 +58,11 @@ class CountryDeleteView(DeleteView):
         self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
+
+
+class AccommodationDetailView(DetailView):
+    model = Accommodation
+    template_name = 'adminapp/accommodation_read.html'
 
 @user_passes_test(lambda u: u.is_superuser)
 def users(request):
