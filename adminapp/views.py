@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
 from django.utils.decorators import method_decorator
 from mainapp.models import Accommodation
 from mainapp.models import ListOfCountries
@@ -25,7 +26,7 @@ class UsersListView(ListView):
         return super().dispatch(*args, **kwargs)
 
 
-class CountryCrerateView(CreateView):
+class CountryCreateView(CreateView):
     model = ListOfCountries
     template_name = 'adminapp/country_update.html'
     success_url = reverse_lazy('admin:countries')
@@ -40,9 +41,22 @@ class CountryUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'страны.редактирование'
+        context['title'] = 'страны/редактирование'
 
         return context
+
+
+class CountryDeleteView(DeleteView):
+    model = ListOfCountries
+    template_name = 'adminapp/country_delete.html'
+    success_url = reverse_lazy('admin:countries')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+
+        return HttpResponseRedirect(self.get_success_url())
 
 @user_passes_test(lambda u: u.is_superuser)
 def users(request):
