@@ -1,49 +1,50 @@
 {% extends 'adminapp/base.html' %}
 {% load static %}
+{% load tagz %}
 
 {% block content %}
-  <div class="products_list">
-    <button class="new_product">
-      <a href={% url 'admin:accommodation_create' country.pk %}>
-        новый продукт
-      </a>
-    </button>
-		
-    {% for object in objects %}
-      <div class="product_record">
-        <img 
-          src="/media/{{object.image|default:'products_images/default.jpg'}}"
-          alt="{{ object.name }}">
-        <div class="product_name">
-          {{ object.name|title }}
-        </div>
-        <div class="product_actions">
-          <button>
-            <a href={% url 'admin:accommodation_read' object.pk %}>
-              подробнее
+    <div class="products_list">
+        <button class="new_product">
+            <a href={% url 'admin:accommodation_create' country.pk %}>
+                новый продукт
             </a>
-          </button>
-          <button>
-            <a href={% url 'admin:accommodation_update' object.pk %}>
-              редактировать
-            </a>
-          </button>
-          <button>
-            <a href={% url 'admin:accommodation_delete' object.pk %}>
-              удалить
-            </a>
-          </button>
-        </div>
-        <div class="summary">
-          <b>цена</b>
-          <p>{{ object.price }} руб</p>
-          <b>количество</b>
-          <p>{{ object.availability }}</p>
-        </div>
-        <div class="product_desc">
-          {{ object.short_desc|title }}
-        </div>
-      </div>
-    {% endfor%}
-  </div>
+        </button>
+
+        {% for object in objects %}
+            <div class="product_record">
+                <img
+                        src="/media/{{ object.image | media_acc }}"
+                        alt="{{ object.name }}">
+                <div class="product_name">
+                    {{ object.name|title }}
+                </div>
+                <div class="product_actions">
+                    <button>
+                        <a href={% url 'admin:accommodation_read' object.pk %}>
+                            подробнее
+                        </a>
+                    </button>
+                    <button>
+                        <a href={% url 'admin:accommodation_update' object.pk %}>
+                            редактировать
+                        </a>
+                    </button>
+                    <button>
+                        <a href={% url 'admin:accommodation_delete' object.pk %}>
+                            удалить
+                        </a>
+                    </button>
+                </div>
+                <div class="summary">
+                    <b>цена</b>
+                    <p>{{ object.price }} руб</p>
+                    <b>количество</b>
+                    <p>{{ object.availability }}</p>
+                </div>
+                <div class="product_desc">
+                    {{ object.short_desc|title }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
