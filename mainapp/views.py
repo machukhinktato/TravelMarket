@@ -8,6 +8,7 @@ import random
 from .models import ListOfCountries
 from .models import Accommodation
 from basketapp.models import Basket
+# from . import context_processors
 
 
 def main(request):
@@ -21,7 +22,7 @@ def accommodation(request, pk):
         'title': title,
         'links_menu': ListOfCountries.objects.all(),
         'accommodation': get_object_or_404(Accommodation, pk=pk),
-        'basket': get_basket(request.user),
+        # 'basket': get_basket(request.user),
     }
 
     return render(request, 'mainapp/accommodation_details.html', content)
@@ -60,7 +61,7 @@ def accommodations(request, pk=None, page=1):
             'list_of_accommodations': list_of_accommodations,
             'country': country,
             'accommodations': accommodations_paginator,
-            'basket': basket,
+            # 'basket': basket,
         }
         return render(request, 'mainapp/accommodation_list.html', content)
 
@@ -72,7 +73,7 @@ def accommodations(request, pk=None, page=1):
         'list_of_accommodations': list_of_accommodations,
         'hot_offer': hot_offer,
         'same_accommodations': same_accommodations,
-        'basket': basket,
+        # 'basket': basket,
     }
 
     return render(request, 'mainapp/accommodations.html', content)
