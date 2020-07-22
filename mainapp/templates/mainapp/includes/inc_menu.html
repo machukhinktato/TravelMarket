@@ -40,11 +40,28 @@
             {% endif %}
 
             <li class="nav-item">
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'auth:logout' %}">выйти</a>
-                {% else %}
-                    <a class="nav-link" href="{% url 'auth:login' %}">войти</a>
-                {% endif %}
+{% if user.is_authenticated %}
+   <li>
+       <div class="nav-item dropdown" aria-labelledby="navbarDropdown">
+           <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">
+               {{ user.first_name|default:'Пользователь' }}
+               <span class="caret"></span>
+           </a>
+           <ul class="nav-item dropdown-menu">
+               <li class="dropdown-item">
+                   <a " href="{% url 'auth:edit' %}">
+                       профиль
+                   </a>
+               </li>
+               <li class="dropdown-item">
+                   <a href="">
+                       заказы
+                   </a>
+               </li>
+           </ul>
+       </div>
+   </li>
+{% endif %}
             </li>
 
         </ul>
