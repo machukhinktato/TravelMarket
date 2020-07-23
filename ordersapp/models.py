@@ -40,7 +40,7 @@ class Order(models.Model):
 
     def get_total_nights(self):
         accommodations = self.orderitems.select_related()
-        return sum(list(map(lambda x: x.get_accommodation_nights, x.accommodations)))
+        return sum(list(map(lambda x: x.nights, accommodations)))
 
     def get_accommodation_nights(self):
         accommodation = self.orderitems.select_related()
