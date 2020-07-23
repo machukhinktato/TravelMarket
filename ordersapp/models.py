@@ -38,9 +38,9 @@ class Order(models.Model):
     def __str__(self):
         return f'Текущий заказ: {self.id} '
 
-    def get_total_nigths(self):
-        accommdoations = self.orderitems.select_related()
-        return sum(list(map(lambda x: x.nights, x.accommodations)))
+    def get_total_nights(self):
+        accommodations = self.orderitems.select_related()
+        return sum(list(map(lambda x: x.get_accommodation_nights, x.accommodations)))
 
     def get_accommodation_nights(self):
         accommodation = self.orderitems.select_related()
@@ -48,7 +48,7 @@ class Order(models.Model):
 
     def get_total_cost(self):
         accommodation = self.orderitems.select_related()
-        return sum(list(map(lambda x: x.nights * x.accommodation.price, items)))
+        return sum(list(map(lambda x: x.nights * x.accommodation.price, accommodation)))
 
     def delete(self):
         for item in self.orderitems.select_related():

@@ -30,3 +30,7 @@ class Basket(models.Model):
         _accommodation = Basket.objects.filter(user=self.user)
         _total_cost = sum(list(map(lambda  x: x.accommodation_cost, _accommodation)))
         return _total_cost
+
+
+    def get_items(user):
+        return Basket.objects.filter(user=user).order_by('accommodation__country')
