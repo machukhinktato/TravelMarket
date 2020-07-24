@@ -9,23 +9,23 @@
         <div class="details-products">
             <div class="details-slider">
                 <div class="slider-product">
-                    {% for offer in list_of_accommodations %}
+                    {% for hot_offer in list_of_accommodations %}
                         <img src="/media/{{ hot_offer.image }}">
 
                         </div>
                         <div class="slider-control">
                             <div class="block">
-                                <a href="#"><img src="/media/{{ offer.image }}" alt="">
+                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
                                     <div class="text"></div>
                                 </a>
                             </div>
                             <div class="block">
-                                <a href="#"><img src="/media/{{ offer.image }}" alt="">
+                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
                                     <div class="text"></div>
                                 </a>
                             </div>
                             <div class="block">
-                                <a href="#"><img src="/media/{{ offer.image }}" alt="">
+                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
                                     <div class="text"></div>
                                 </a>
                             </div>
@@ -33,14 +33,14 @@
                         </div>
 
                         <div class="description">
-                            <h3 class="big-bold">{{ offer.name }}</h3>
+                            <h3 class="big-bold">{{ hot_offer.name }}</h3>
                             <h3 class="red">горячее предложение</h3>
-                            <p class="price"> {{ offer.price }} <span>руб</span></p>
-                            <a href="{% url 'basket:add' offer.pk %}" class="red-button">
+                            <p class="price"> {{ hot_offer.price }} <span>руб</span></p>
+                            <a href="{% url 'basket:add' hot_offer.pk %}" class="red-button">
                                 забронировать <i class="fa fa-chevron-right" aria-hidden="true"></i>
                             </a>
                             <div class="description-text">
-                                {{ offer.description }}
+                                {{ hot_offer.description }}
                             </div>
                         </div>
                         </div>

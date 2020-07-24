@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from mainapp.models import ListOfCountries
 from mainapp.models import Accommodation
+from mainapp.models import Regions
 from django.contrib.auth.models import User
 from authapp.models import ShopUser
 
@@ -23,6 +24,16 @@ class Command(BaseCommand):
             new_country = ListOfCountries(**country)
             new_country.save()
 
+        regions = load_from_json('regions')
+
+        Regions.objects.all().delete()
+        for _region in regions:
+            region_location = _region["country"]
+            _country = ListOfCountries.objects.get(name=region_location)
+            _region["country"] = _country
+            new_region = Regions(**_region)
+            new_region.save()
+
         accommodations = load_from_json('accommodations')
 
         Accommodation.objects.all().delete()
@@ -30,6 +41,9 @@ class Command(BaseCommand):
             acc_location = acc["country"]
             _country = ListOfCountries.objects.get(name=acc_location)
             acc['country'] = _country
+            acc_region = acc["region"]
+            acc_reg = Regions.objects.get(name=acc_region)
+            acc['region'] = acc_reg
             new_acc = Accommodation(**acc)
             new_acc.save()
 

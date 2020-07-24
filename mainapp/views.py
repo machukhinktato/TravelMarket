@@ -6,6 +6,7 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 import random
 from .models import ListOfCountries
+from .models import Regions
 from .models import Accommodation
 from basketapp.models import Basket
 # from . import context_processors
@@ -31,10 +32,10 @@ def accommodation(request, pk):
 def accommodations(request, pk=None, page=1):
     title = 'размещение'
     list_of_accommodations = Accommodation.objects.filter(is_active=True)
-    basket = get_basket(request.user)
-
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
+    # basket = get_basket(request.user)
+    #
+    # if request.user.is_authenticated:
+    #     basket = Basket.objects.filter(user=request.user)
 
     if pk is not None:
         if pk == 0:
