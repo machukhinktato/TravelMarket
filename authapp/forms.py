@@ -18,21 +18,34 @@ class ShopUserLoginForm(AuthenticationForm):
         super(ShopUserLoginForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
-            field.help_text = ' '
+            field.help_texts = ''
+
+
+class ShopUserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = ShopUserProfile
+        fields = ('tagline', 'aboutMe', 'gender')
+
+
+    def __init__(self, *args, **kwargs):
+        super(ShopUserProfileEditForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_texts = ''
 
 
 class ShopUserRegisterForm(UserCreationForm):
     class Meta:
         model = ShopUser
-        fields = ['username', 'first_name',
+        fields = ('username', 'first_name',
                   'password1', 'password2',
-                  'email', 'age', 'avatar']
+                  'email', 'age', 'avatar')
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             for field_name, field in self.fields.items():
                 field.widget.attrs['class'] = 'form-control'
-                field.help_text = ' '
+                field.help_texts = ''
 
         def clean_age(self):
             data = self.cleaned_data['age']
@@ -56,17 +69,18 @@ class ShopUserRegisterForm(UserCreationForm):
 class ShopUserEditForm(UserChangeForm):
     class Meta:
         model = ShopUser
-        fields = [
+        fields = (
             'username', 'first_name', 'email', 'age', 'avatar', 'password'
-        ]
+        )
 
         def __init__(self, *args, **kwargs):
             super().__init__(self, *args, **kwargs)
             for field_name, field in self.fields.items():
                 field.widget.attrs['class'] = 'form-control'
-                field.help_text = ''
+                field.help_texts = ''
                 if field_name == 'password':
                     field.widget = forms.HiddenInput()
+                    field.help_texts = ''
 
         def clean_age(self):
             data = self.cleaned_data['age']
@@ -75,15 +89,3 @@ class ShopUserEditForm(UserChangeForm):
                     'Забронировать размещение возможно лишь с 18-ти лет')
 
             return data
-
-
-class ShopUserProfileEditForm(forms.ModelForm):
-    class Meta:
-        model = ShopUserProfile
-        fields = ('tagline', 'aboutMe', 'gender')
-
-    def __init__(self, *args, **kwargs):
-        super(ShopUserProfileEditForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            field.help_text = ''

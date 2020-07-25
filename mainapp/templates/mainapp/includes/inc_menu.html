@@ -25,14 +25,14 @@
             {#                <a class="nav-link" href="#">обратная связь</a>#}
             {#            </li>#}
 
-            {% if user.is_authenticated %}
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{% url 'auth:edit' %}">{{ user.name|default:'пользователь' }}</a>
-                    <a class="dropdown-item" href="{% url 'acc:index' %}">горячее предложение</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'acc:index' %}">наши эксклюзивы</a>
-                </div>
-            {% endif %}
+{#            {% if user.is_authenticated %}#}
+{#                <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+{#                    <a class="dropdown-item" href="{% url 'auth:edit' %}">{{ user.name|default:'пользователь' }}</a>#}
+{#                    <a class="dropdown-item" href="{% url 'acc:index' %}">горячее предложение</a>#}
+{#                    <div class="dropdown-divider"></div>#}
+{#                    <a class="dropdown-item" href="{% url 'acc:index' %}">наши эксклюзивы</a>#}
+{#                </div>#}
+{#            {% endif %}#}
             {#            {% if user.is_authenticated %}#}
             {#                <li class="nav-item">#}
             {#                    <a class="nav-link" href="{% url 'auth:edit' %}">#}
@@ -53,15 +53,15 @@
                         <div class="nav-item dropdown" aria-labelledby="navbarDropdown">
                             <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">
                                 {{ user.first_name|default:'пользователь' }}
-                                <span class="caret"></span>
+
                             </a>
                             <ul class="nav-item dropdown-menu">
                                 <li class="dropdown-item">
                                     <a href="{% url 'auth:edit' %}">
-                                    профиль
+                                        профиль
                                     </a>
                                 </li>
-                                <li class="dropdown-item">
+                                <li class="dropdown-item black">
                                     <a href="{% url 'order:orders_list' %}">
                                         заказы
                                     </a>
@@ -71,6 +71,9 @@
                                 </li>
                             </ul>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'auth:logout' %}">выйти</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
