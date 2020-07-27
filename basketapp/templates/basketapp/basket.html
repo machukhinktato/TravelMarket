@@ -2,18 +2,23 @@
 {% load static %}
 
 {% block content %}
-    <div class="basket_list">
-        {% include 'basketapp/includes/inc_basket_list.html' %}
+    <div class="container">
+        <button class="btn btn-outline-secondary">
+            <a style="color: black; text-decoration: none" href="{% url 'main' %}">
+                на главную
+            </a>
+        </button>
+        <div class="basket_list mt-4">
+            {% include 'basketapp/includes/inc_basket_list.html' %}
+        </div>
+        <div class="container">
+            <div class="row justify-content-between mt-2">
+                <button class="btn btn-outline-success">
+                    <a style="color: black; text-decoration: none" href="{% url 'order:order_create' %}">
+                        к оформлению
+                    </a>
+                </button>
+            </div>
+        </div>
     </div>
-    <button class="btn btn-round">
-        <a href="{% url 'main' %}">
-            на главную
-        </a>
-    </button>
-    <button class="btn btn-round">
-        <a href="{% url 'order:order_create' %}">
-            к оформлению
-        </a>
-    </button>
-
 {% endblock %}

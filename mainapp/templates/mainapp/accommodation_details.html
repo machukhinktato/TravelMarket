@@ -2,47 +2,33 @@
 {% load static %}
 
 {% block content %}
-    <div class="details">
-{#        <div class="links clearfix">#}
-{#            {% include 'mainapp/includes/inc_countries_menu.html' %}#}
-{#        </div>#}
-        <div class="details-products">
-            <div class="details-slider">
-                <div class="slider-product">
-                    <img src="/media/{{ accommodation.image }}"
-                         alt="{{ accommodation.short_desc }}">
+
+    <div class="container-fluid">
+        <div class="media ">
+            <img src="/media/{{ accommodation.image }}" class="img-fluid mt-2 col-lg-offset-4" alt="Responsive image"
+                 style="height: 300px">
+            <div class="ml-1 container-fluid">
+                <div class="align-content-lg-between text-center">
+                    <h1 class="mt-3 ml-3">{{ accommodation.name|title }}</h1>
+                    <br>
+                    <p>месторасположение: {{ accommodation.region|title }}</p>
+                    <br>
+                    <p>стоимость за сутки: {{ accommodation.price }}</p>
+                    <br><br><br><br>
                 </div>
-                <div class="slider-control">
-                    <div class="block">
-                        <a href="#">
-                            <img src="/media/{{ accommodation.image }}" alt="вариант 1">
-                        </a>
-                    </div>
-                    <div class="block">
-                        <a href="#">
-                            <img src="/media/{{ accommodation.image }}" alt="вариант 2">
-                        </a>
-                    </div>
-                    <div class="block">
-                        <a href="#">
-                            <img src="/media/{{ accommodation.image }}" alt="вариант 3">
-                        </a>
-                    </div>
+                <div class="float-right">
+                    <button class="btn  btn-danger ">
+                        <a style="color: white; text-decoration: none"
+                           href="{% url 'basket:add' accommodation.pk %}">Забронировать</a>
+                    </button>
                 </div>
             </div>
-            <div class="description">
-                <h3 class="big-bold">{{ accommodation.name }}</h3>
-                <br>
-                <p class="price">{{ accommodation.price }}</p>
-                <a href="{% url 'basket:add' accommodation.pk %}" class="red-button">
-                    заказать ЖТО РАБОТАЕТ
-                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                </a>
-                <div class="description-text">
-                    {{ accommodation.image }}
-                </div>
-            </div>
+
+        </div>
+        <div class="mt-3">
+            <h3>Описание</h3>
+            {{ accommodation.description|title }}
         </div>
     </div>
-    <div class="clr"></div>
+
 {% endblock %}
