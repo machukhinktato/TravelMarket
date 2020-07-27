@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.db.models import Q
 import random
 from .models import ListOfCountries
 from .models import Regions
@@ -23,7 +24,6 @@ def accommodation(request, pk):
         'title': title,
         'links_menu': ListOfCountries.objects.all(),
         'accommodation': get_object_or_404(Accommodation, pk=pk),
-        # 'basket': get_basket(request.user),
     }
 
     return render(request, 'mainapp/accommodation_details.html', content)
@@ -31,11 +31,8 @@ def accommodation(request, pk):
 
 def accommodations(request, pk=None, page=1):
     title = 'размещение'
+
     list_of_accommodations = Accommodation.objects.filter(is_active=True)
-    # basket = get_basket(request.user)
-    #
-    # if request.user.is_authenticated:
-    #     basket = Basket.objects.filter(user=request.user)
 
     if pk is not None:
         if pk == 0:

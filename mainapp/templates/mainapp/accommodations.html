@@ -1,75 +1,103 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="details">
-                <div class="links clearfix">
-                    {% include 'mainapp/includes/inc_countries_menu.html' %}
+
+
+    <div class="container align-center ">
+        <div class="row centered align-items-lg-center ">
+            {% for offer in list_of_accommodations %}
+
+                <div class="card my-sm-0 col-lg-auto " style="width: 18rem;">
+                    <img src="/media/{{ offer.image }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ offer.name }}</h5>
+                        <p class="card-text">{{ offer.price }} за сутки.</p>
+                        <a href="{% url 'acc:accommodation' offer.pk %}" class="btn btn-danger">подробнее</a>
+                    </div>
                 </div>
 
-        <div class="details-products">
-            <div class="details-slider">
-                <div class="slider-product">
-                    {% for hot_offer in list_of_accommodations %}
-                        <img src="/media/{{ hot_offer.image }}">
-
-                        </div>
-                        <div class="slider-control">
-                            <div class="block">
-                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
-                                    <div class="text"></div>
-                                </a>
-                            </div>
-                        <div class="block">
-                            <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
-                                <div class="text"></div>
-                            </a>
-                        </div>
-                        <div class="block">
-                            <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">
-                                <div class="text"></div>
-                            </a>
-                        </div>
-                        </div>
-                        </div>
-
-                        <div class="description">
-                            <h3 class="big-bold">{{ hot_offer.name }}</h3>
-                            <h3 class="red">горячее предложение</h3>
-                            <p class="price"> {{ hot_offer.price }} <span>руб</span></p>
-                            <a href="{% url 'basket:add' hot_offer.pk %}" class="red-button">
-                                забронировать <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                            </a>
-                            <div class="description-text">
-                                {{ hot_offer.description }}
-                            </div>
-                        </div>
-                        </div>
-                    {% endfor %}
-
-        <div class="related">
-            <div class="title clearfix">
-                <h2>Похожие продукты</h2>
-                <a class="explore" href="#">показать все <img src="/static/img/arrow.png" alt=""></a>
-            </div>
-            <div class="related-products clearfix">
-                {% for acc in same_accs %}
-                    <div class="block">
-                        <a href="#"><img src="/media/{{ acc.image }}" alt="{{ acc.short_desc }}">
-                            <div class="text">
-                                <img src="/static/img/icon-hover.png" alt="img">
-                                <h3>Категория:{{ acc.category.name }}</h3>
-                                <h4>Название: {{ acc.name }}</h4>
-                                <p>Описание: {{ acc.description }} </p>
-                                <p>Цена: {{ acc.price }} </p>
-                                <p>На складе: {{ acc.availability }} </p>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
+    {#    <div class="details">#}
+    {#        <div class="links clearfix">#}
+    {#            {% include 'mainapp/includes/inc_countries_menu.html' %}#}
+    {#        </div>#}
 
-    <div class="clr"></div>
+    {#        <div class="details-products">#}
+    {#            <div class="details-slider">#}
+    {#                <div class="slider-product">#}
+    {#                    {% for hot_offer in list_of_accommodations %}#}
+    {#                        <div class="card my-sm-0" style="width: 18rem;">#}
+    {#                            <img src="/media/{{ hot_offer.image }}" class="card-img-top" alt="...">#}
+    {#                            <div class="card-body">#}
+    {#                                <h5 class="card-title">{{ hot_offer.name }}</h5>#}
+    {#                                <p class="card-text">{{ hot_offer.price}} за сутки.</p>#}
+    {#                                <a href="{% url 'acc:accommodation' hot_offer.pk%}" class="btn btn-primary">подробнее</a>#}
+    {#                            </div>#}
+    {#                        </div>#}
+
+
+    {#                        <div class=""><img src="/media/{{ hot_offer.image }}">#}
+    {#                        </div>#}
+    {#                        </div>#}
+    {#                        <div class="slider-control">#}
+    {#                            <div class="block">#}
+    {#                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">#}
+    {#                                    <div class="text"></div>#}
+    {#                                </a>#}
+    {#                            </div>#}
+    {#                            <div class="block">#}
+    {#                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">#}
+    {#                                    <div class="text"></div>#}
+    {#                                </a>#}
+    {#                            </div>#}
+    {#                            <div class="block">#}
+    {#                                <a href="#"><img src="/media/{{ hot_offer.image }}" alt="">#}
+    {#                                    <div class="text"></div>#}
+    {#                                </a>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                        </div>#}
+    {##}
+    {#                        <div class="description">#}
+    {#                            <h3 class="big-bold">{{ hot_offer.name }}</h3>#}
+    {#                            <h3 class="red">горячее предложение</h3>#}
+    {#                            <p class="price"> {{ hot_offer.price }} <span>руб</span></p>#}
+    {#                            <a href="{% url 'basket:add' hot_offer.pk %}" class="red-button">#}
+    {#                                забронировать <i class="fa fa-chevron-right" aria-hidden="true"></i>#}
+    {#                            </a>#}
+    {#                            <div class="description-text">#}
+    {#                                {{ hot_offer.description }}#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                        </div>#}
+    {#                    {% endfor %}#}
+
+    {#            <div class="related">#}
+    {#                <div class="title clearfix">#}
+    {#                    <h2>Похожие продукты</h2>#}
+    {#                    <a class="explore" href="#">показать все <img src="/static/img/arrow.png" alt=""></a>#}
+    {#                </div>#}
+    {#                <div class="related-products clearfix">#}
+    {#                    {% for acc in same_accs %}#}
+    {#                        <div class="block">#}
+    {#                            <a href="#"><img src="/media/{{ acc.image }}" alt="{{ acc.short_desc }}">#}
+    {#                                <div class="text">#}
+    {#                                    <img src="/static/img/icon-hover.png" alt="img">#}
+    {#                                    <h3>Категория:{{ acc.category.name }}</h3>#}
+    {#                                    <h4>Название: {{ acc.name }}</h4>#}
+    {#                                    <p>Описание: {{ acc.description }} </p>#}
+    {#                                    <p>Цена: {{ acc.price }} </p>#}
+    {#                                    <p>На складе: {{ acc.availability }} </p>#}
+    {#                                </div>#}
+    {#                            </a>#}
+    {#                        </div>#}
+    {#                    {% endfor %}#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {##}
+    {#        <div class="clr"></div>#}
 
 {% endblock %}

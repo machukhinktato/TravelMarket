@@ -25,158 +25,114 @@
 
 </head>
 <body>
-{% block menu %}
-    {% include 'mainapp/includes/inc_menu.html' %}
-{% endblock %}
+<div class="container">
+    {% block menu %}
+        {% include 'mainapp/includes/inc_menu.html' %}
+    {% endblock %}
 
-{% block list %}
+    {% block list %}
 
-{% endblock %}
+    {% endblock %}
 
-{% block content %}
-    {#    <div class="jumbotron_v1">#}
-    {#    <h1 class="display-4">Hello, world!</h1>#}
-    {#    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to#}
-    {#        featured content or information.</p>#}
-    {#    <hr class="my-4">#}
-    {#    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>#}
-    {#    <a class="btn btn-danger btn-danger" href="#" role="button">Learn more</a>#}
-    {#    </div>#}
+    {% block content %}
 
+    {% endblock %}
 
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{% static 'img/Hawaii.jpg' %}" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+    {% block footer %}
+        <footer class="page-footer font-small unique-color-dark">
+            <div class="container">
+                <div class="row py-4 d-flex align-items-center">
+                    <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                        <h6 class="mb-0">И весь мир у вас на ладони</h6>
+                    </div>
+                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+
+                        <!-- Facebook -->
+                        <a class="fb-ic">
+                            <i class="fab fa-facebook-f white-text mr-4"> </i>
+                        </a>
+                        <!-- Twitter -->
+                        <a class="tw-ic">
+                            <i class="fab fa-twitter white-text mr-4"> </i>
+                        </a>
+                        <!-- Google +-->
+                        <a class="gplus-ic">
+                            <i class="fab fa-google-plus-g white-text mr-4"> </i>
+                        </a>
+                        <!--Linkedin -->
+                        <a class="li-ic">
+                            <i class="fab fa-linkedin-in white-text mr-4"> </i>
+                        </a>
+                        <!--Instagram-->
+                        <a class="ins-ic">
+                            <i class="fab fa-instagram white-text"> </i>
+                        </a>
+
+                    </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="{% static 'img/beach.jpg' %}" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div class="container text-center text-md-left mt-5">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">О нас</h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit
+                            amet,
+                            consectetur
+                            adipisicing elit.</p>
+
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">Страны</h6>
+                        <hr class="deep-black accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="#!">MDBootstrap</a>
+                        </p>
+                        <p>
+                            <a href="#!">MDWordPress</a>
+                        </p>
+                        <p>
+                            <a href="#!">BrandFlow</a>
+                        </p>
+                        <p>
+                            <a href="#!">Bootstrap Angular</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">Полезные ссылки</h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="#!">Your Account</a>
+                        </p>
+                        <p>
+                            <a href="#!">Become an Affiliate</a>
+                        </p>
+                        <p>
+                            <a href="#!">Shipping Rates</a>
+                        </p>
+                        <p>
+                            <a href="#!">Help</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <i class="fas fa-home mr-3"></i> Moscow, Russia</p>
+                        <p>
+                            <i class="fas fa-envelope mr-3"></i> machukhinktato@mail.ru</p>
+                        <p>
+                            <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                        <p>
+                            <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                    </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="{% static 'img/sands.jpg' %}" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </div>
+            <div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+                <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
             </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-{% endblock %}
+        </footer>
 
-{% block footer %}
-    <footer class="page-footer font-small unique-color-dark">
-        <div class="container">
-            <div class="row py-4 d-flex align-items-center">
-                <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                    <h6 class="mb-0">И весь мир у вас на ладони</h6>
-                </div>
-                <div class="col-md-6 col-lg-7 text-center text-md-right">
-
-                    <!-- Facebook -->
-                    <a class="fb-ic">
-                        <i class="fab fa-facebook-f white-text mr-4"> </i>
-                    </a>
-                    <!-- Twitter -->
-                    <a class="tw-ic">
-                        <i class="fab fa-twitter white-text mr-4"> </i>
-                    </a>
-                    <!-- Google +-->
-                    <a class="gplus-ic">
-                        <i class="fab fa-google-plus-g white-text mr-4"> </i>
-                    </a>
-                    <!--Linkedin -->
-                    <a class="li-ic">
-                        <i class="fab fa-linkedin-in white-text mr-4"> </i>
-                    </a>
-                    <!--Instagram-->
-                    <a class="ins-ic">
-                        <i class="fab fa-instagram white-text"> </i>
-                    </a>
-
-                </div>
-            </div>
-        </div>
-        <div class="container text-center text-md-left mt-5">
-            <div class="row mt-3">
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h6 class="text-uppercase font-weight-bold">О нас</h6>
-                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                        consectetur
-                        adipisicing elit.</p>
-
-                </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase font-weight-bold">Страны</h6>
-                    <hr class="deep-black accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                    <p>
-                        <a href="#!">MDBootstrap</a>
-                    </p>
-                    <p>
-                        <a href="#!">MDWordPress</a>
-                    </p>
-                    <p>
-                        <a href="#!">BrandFlow</a>
-                    </p>
-                    <p>
-                        <a href="#!">Bootstrap Angular</a>
-                    </p>
-                </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-<h6 class="text-uppercase font-weight-bold">Полезные ссылки</h6>
-                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                    <p>
-                        <a href="#!">Your Account</a>
-                    </p>
-                    <p>
-                        <a href="#!">Become an Affiliate</a>
-                    </p>
-                    <p>
-                        <a href="#!">Shipping Rates</a>
-                    </p>
-                    <p>
-                        <a href="#!">Help</a>
-                    </p>
-                </div>
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                    <p>
-                        <i class="fas fa-home mr-3"></i> Moscow, Russia</p>
-                    <p>
-                        <i class="fas fa-envelope mr-3"></i> machukhinktato@mail.ru</p>
-                    <p>
-                        <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                    <p>
-                        <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-        </div>
-    </footer>
-{% endblock %}
-
+    {% endblock %}
+</div>
 </body>
 </html>

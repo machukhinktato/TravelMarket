@@ -10,6 +10,21 @@
     width: 900px;
 }
 
+
+.gallery {
+    overflow: hidden;
+    width: 480px;
+}
+.gallery .border{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.gallery img {
+    width: 150px;
+    height: 150px;
+}
+
 .order_container button a {
     text-decoration: none;
     color: #555;
@@ -693,6 +708,7 @@ html, body {
     left: 175px;
     top: 200px;
 }
+
 
 .user_avatar img {
     width: 300px;
