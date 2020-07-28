@@ -1,9 +1,9 @@
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import UserChangeForm
-from django import forms
 import random
 import hashlib
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import ShopUser
 from .models import ShopUserProfile
@@ -18,7 +18,6 @@ class ShopUserLoginForm(AuthenticationForm):
         super(ShopUserLoginForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
-            field.help_texts = ''
 
 
 class ShopUserProfileEditForm(forms.ModelForm):
@@ -31,7 +30,6 @@ class ShopUserProfileEditForm(forms.ModelForm):
         super(ShopUserProfileEditForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
-            field.help_texts = ''
 
 
 class ShopUserRegisterForm(UserCreationForm):
@@ -47,14 +45,6 @@ class ShopUserRegisterForm(UserCreationForm):
                 field.widget.attrs['class'] = 'form-control'
                 field.help_texts = ''
 
-        def clean_age(self):
-            data = self.cleaned_data['age']
-            if data < 18:
-                raise forms.ValidationErrors(
-                    'Забронировать размещение возможно лишь с 18-ти лет')
-
-            return data
-
         def save(self, commit=True):
             user = super(ShopUserRegisterForm, self).save()
             user.is_active = False
@@ -64,6 +54,16 @@ class ShopUserRegisterForm(UserCreationForm):
             user.save()
 
             return user
+
+        def clean_age(self):
+            data = self.cleaned_data['age']
+            if data < 18:
+                raise forms.ValidationErrors(
+                    'Забронировать размещение возможно лишь с 18-ти лет')
+
+            return data
+
+
 
 
 class ShopUserEditForm(UserChangeForm):
@@ -77,10 +77,10 @@ class ShopUserEditForm(UserChangeForm):
             super().__init__(self, *args, **kwargs)
             for field_name, field in self.fields.items():
                 field.widget.attrs['class'] = 'form-control'
-                field.help_texts = ''
+                field.help_texts = ' '
                 if field_name == 'password':
                     field.widget = forms.HiddenInput()
-                    field.help_texts = ''
+                    field.help_texts = ' '
 
         def clean_age(self):
             data = self.cleaned_data['age']
