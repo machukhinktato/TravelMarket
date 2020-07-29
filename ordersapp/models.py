@@ -68,3 +68,5 @@ class OrderItem(models.Model):
 
     def get_accommodation_cost(self):
         return self.accommodation.price * self.nights
+
+

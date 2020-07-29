@@ -12,11 +12,9 @@ class Basket(models.Model):
     nights = models.PositiveIntegerField(verbose_name='кол-во ночей', default=0)
     add_datetime = models.DateTimeField(verbose_name='время', auto_now_add=True)
 
-
     @property
     def accommodation_cost(self):
         return self.accommodation.price * self.nights
-
 
     @property
     def total_nights(self):
@@ -24,13 +22,20 @@ class Basket(models.Model):
         _total_nights = sum(list(map(lambda x: x.nights, _accommodation)))
         return _total_nights
 
-
     @property
     def total_cost(self):
         _accommodation = Basket.objects.filter(user=self.user)
-        _total_cost = sum(list(map(lambda  x: x.accommodation_cost, _accommodation)))
+        _total_cost = sum(list(map(lambda x: x.accommodation_cost, _accommodation)))
         return _total_cost
-
 
     def get_items(user):
         return Basket.objects.filter(user=user).order_by('accommodation__country')
+
+    # def save(self, *args, **kwargs):
+    #     if self.pk:
+    #         self.accommodation.availability -= self.nights - \
+    #                                  self.__class__.get_item(self.pk).availability
+    #     else:
+    #         self.accommodation.availability -= self.nights
+    #     self.accommodation.save()
+    #     super(self.__class__, self).save(*args, **kwargs)

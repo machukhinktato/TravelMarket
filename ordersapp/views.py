@@ -3,6 +3,9 @@ from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.db import transaction
+from django.db.models.signals import pre_save
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 from django.forms import inlineformset_factory
 from django.forms import formset_factory
@@ -50,6 +53,7 @@ class OrderItemsCreate(CreateView):
                 for num, form in enumerate(formset.forms):
                     form.initial['accommodation'] = basket_items[num].accommodation
                     form.initial['nights'] = basket_items[num].nights
+                    form.initial['price'] = basket_items[num].accommodation.price
                 basket_items.delete()
             else:
                 formset = OrderFormSet()
@@ -98,7 +102,11 @@ class OrderItemsUpdate(UpdateView):
         if self.request.POST:
             data['orderitems'] = OrderFormSet(self.request.POST, instance=self.object)
         else:
-            data['orderitems'] = OrderFormSet(instance=self.object)
+            formset = OrderFormSet(instance=self.object)
+            for form in formset.forms:
+                if form.instance.pk:
+                    form.initial['price'] = form.instance.accommodation.price
+            data['orderitems'] = formset
 
         return data
 
@@ -130,3 +138,22 @@ def order_forming_complete(request, pk):
     order.save()
 
     return HttpResponseRedirect(reverse('ordersapp:orders_list'))
+
+
+@receiver(pre_save, sender=OrderItem)
+@receiver(pre_save, sender=Basket)
+def accommodation_quantity_update_save(sender, update_fields, instance, **kwargs):
+   if update_fields is 'nights' or 'accommodation':
+       if instance.pk:
+           instance.accommodation.availability -= instance.nights - \
+                                        sender.get_item(instance.pk).availability
+       else:
+           instance.accommodation.availability -= instance.nights
+       instance.accommodation.save()
+
+
+@receiver(pre_delete, sender=OrderItem)
+@receiver(pre_delete, sender=Basket)
+def accommodation_quantity_update_delete(sender, instance, **kwargs):
+   instance.accommodation.availability += instance.nights
+   instance.accommodation.save()
