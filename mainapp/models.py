@@ -35,7 +35,7 @@ class Accommodation(models.Model):
 
 
     @staticmethod
-    def get_list_of_acc():
+    def get_items():
         return Accommodation.objects.filter(is_active=True).order_by('country','regions', 'name')
 
     def __str__(self):

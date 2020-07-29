@@ -138,22 +138,3 @@ def order_forming_complete(request, pk):
     order.save()
 
     return HttpResponseRedirect(reverse('ordersapp:orders_list'))
-
-
-@receiver(pre_save, sender=OrderItem)
-@receiver(pre_save, sender=Basket)
-def accommodation_quantity_update_save(sender, update_fields, instance, **kwargs):
-   if update_fields is 'nights' or 'accommodation':
-       if instance.pk:
-           instance.accommodation.availability -= instance.nights - \
-                                        sender.get_item(instance.pk).availability
-       else:
-           instance.accommodation.availability -= instance.nights
-       instance.accommodation.save()
-
-
-@receiver(pre_delete, sender=OrderItem)
-@receiver(pre_delete, sender=Basket)
-def accommodation_quantity_update_delete(sender, instance, **kwargs):
-   instance.accommodation.availability += instance.nights
-   instance.accommodation.save()
