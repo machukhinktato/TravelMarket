@@ -1,12 +1,9 @@
 import random
 import hashlib
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserChangeForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCreationForm
 
-from .models import ShopUser
-from .models import ShopUserProfile
+from .models import ShopUser, ShopUserProfile
 
 
 class ShopUserLoginForm(AuthenticationForm):
@@ -25,7 +22,6 @@ class ShopUserProfileEditForm(forms.ModelForm):
         model = ShopUserProfile
         fields = ('tagline', 'aboutMe', 'gender')
 
-
     def __init__(self, *args, **kwargs):
         super(ShopUserProfileEditForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -35,57 +31,56 @@ class ShopUserProfileEditForm(forms.ModelForm):
 class ShopUserRegisterForm(UserCreationForm):
     class Meta:
         model = ShopUser
-        fields = ('username', 'first_name',
-                  'password1', 'password2',
-                  'email', 'age', 'avatar')
+        fields = (
+            'username', 'first_name', 'password1',
+            'password2', 'email', 'age', 'avatar'
+        )
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            for field_name, field in self.fields.items():
-                field.widget.attrs['class'] = 'form-control'
-                field.help_texts = ''
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_text = ''
 
-        def save(self, commit=True):
-            user = super(ShopUserRegisterForm, self).save()
-            user.is_active = False
-            salt = hashlib.sha1(
-                str(random.random()).encode('utf8')).hexdigest()[:6]
-            user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
-            user.save()
+    def save(self, commit=True):
+        user = super(ShopUserRegisterForm, self).save()
+        user.is_active = False
 
-            return user
+        salt = hashlib.sha1(
+            str(random.random()).encode('utf-8')
+        ).hexdigest()[:6]
 
-        def clean_age(self):
-            data = self.cleaned_data['age']
-            if data < 18:
-                raise forms.ValidationErrors(
-                    'Забронировать размещение возможно лишь с 18-ти лет')
+        user.activation_key = hashlib.sha1((user.email + salt).encode('utf-8')
+                                           ).hexdigest()
+        user.save()
 
-            return data
+        return user
 
+    def clean_age(self):
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise forms.ValidationError("Вы слишком молоды!")
 
+        return data
 
 
 class ShopUserEditForm(UserChangeForm):
     class Meta:
         model = ShopUser
-        fields = (
-            'username', 'first_name', 'email', 'age', 'avatar', 'password'
-        )
+        fields = ('username', 'first_name', 'email', 'age', 'avatar',
+                  'password')
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(self, *args, **kwargs)
-            for field_name, field in self.fields.items():
-                field.widget.attrs['class'] = 'form-control'
-                field.help_texts = ' '
-                if field_name == 'password':
-                    field.widget = forms.HiddenInput()
-                    field.help_texts = ' '
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_text = ''
+            if field_name == 'password':
+                field.widget = forms.HiddenInput()
 
-        def clean_age(self):
-            data = self.cleaned_data['age']
-            if data < 18:
-                raise forms.ValidationErrors(
-                    'Забронировать размещение возможно лишь с 18-ти лет')
+    def clean_age(self):
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise forms.ValidationError("ВЫ слишком молоды!")
 
-            return data
+        return data

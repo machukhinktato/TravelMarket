@@ -64,10 +64,10 @@ def basket_edit(request, pk, nights):
         else:
             new_basket_item.delete()
 
-        basket_items = Basket.objects.filter(user=request.user).order_by('accommodation__country')
+        basket = Basket.get_items(request.user)
 
         content = {
-            'basket_items': basket_items,
+            'basket': basket,
         }
 
         result = render_to_string('basketapp/includes/inc_basket_list.html', content)

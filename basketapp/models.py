@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from mainapp.models import Accommodation
+from django.utils.functional import cached_property
+from django.db.models import query
 
 
 class Basket(models.Model):
@@ -28,8 +30,9 @@ class Basket(models.Model):
         _total_cost = sum(list(map(lambda x: x.accommodation_cost, _accommodation)))
         return _total_cost
 
+    @staticmethod
     def get_items(user):
-        return Basket.objects.filter(user=user).order_by('accommodation__country')
+        return user.basket.select_related().order_by('accommodation__country')
 
     # def save(self, *args, **kwargs):
     #     if self.pk:
