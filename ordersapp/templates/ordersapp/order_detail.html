@@ -13,7 +13,7 @@
                 <span class="product_price">{{ item.accommodation.price }}&nbspруб</span>
                 <span class="product_quantitiy">x {{ item.nights }}
                 {% if item.nights == 1 %} ночь
-                {% elif 1 < item.nights < 5 %} ночи
+                {% elif 1 < item.nights and item.nights < 5 %} ночи
                 {% else %} ночей
                 {% endif %}</span>
                 <span class="product_cost"> = {{ item.get_accommodation_cost }}&nbspруб</span>
