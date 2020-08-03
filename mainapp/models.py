@@ -30,9 +30,11 @@ class Accommodation(models.Model):
     availability = models.PositiveIntegerField(verbose_name='количество свободных номеров')
     price = models.DecimalField(
         verbose_name='цена', max_digits=8, decimal_places=2, default=0)
+    room_desc = models.TextField(verbose_name='краткое описание комнаты', max_length=60, blank=True)
+    is_active = models.BooleanField(verbose_name='активна', default=True)
+
     # begins = models.DateField(verbose_name='начало бронирования')
     # ends = models.DateField(verbose_name='оконачние бронирования')
-    is_active = models.BooleanField(verbose_name='активна', default=True)
 
     @staticmethod
     def get_items():
@@ -44,4 +46,3 @@ class Accommodation(models.Model):
 # class Room(models.Model):
 #     accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE)
 #     room = models.CharField(verbose_name='тип комнаты', max_length=128)
-#     room_desc = models.TextField(verbose_name='краткое описание комнаты', max_length=60, blank=True)
