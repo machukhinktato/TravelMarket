@@ -34,43 +34,43 @@ def accommodations(request, pk=None, page=1):
 
     list_of_accommodations = Accommodation.objects.filter(is_active=True)
 
-    if pk is not None:
-        if pk == 0:
-            country = {'pk': 0, 'name': 'все'}
-            accommodations = Accommodation.objects.filter(
-                is_active=True, country__is_active=True
-            ).order_by('price')
-        else:
-            country = get_object_or_404(ListOfCountries, pk=pk)
-            accommodations = Accommodation.objects.filter(
-                country__pk=pk, is_active=True, country__is_active=True
-            ).order_by('price')
+    # if pk is not None:
+    #     if pk == 0:
+    #         country = {'pk': 0, 'name': 'все'}
+    #         accommodations = Accommodation.objects.filter(
+    #             is_active=True, country__is_active=True
+    #         ).order_by('price')
+    #     else:
+    #         country = get_object_or_404(ListOfCountries, pk=pk)
+    #         accommodations = Accommodation.objects.filter(
+    #             country__pk=pk, is_active=True, country__is_active=True
+    #         ).order_by('price')
+    #
+    #     paginator = Paginator(accommodations, 2)
+    #     try:
+    #         accommodations_paginator = paginator.page(page)
+    #     except PageNotAnInteger:
+    #         accommodations_paginator = paginator.page(1)
+    #     except EmptyPage:
+    #         accommodations_paginator = paginator.page(paginator.num_pages)
+    #
+    #     content = {
+    #         'title': title,
+    #         'list_of_accommodations': list_of_accommodations,
+    #         'country': country,
+    #         'accommodations': accommodations_paginator,
+    #         # 'basket': basket,
+    #     }
+    #     return render(request, 'mainapp/accommodation_list.html', content)
 
-        paginator = Paginator(accommodations, 2)
-        try:
-            accommodations_paginator = paginator.page(page)
-        except PageNotAnInteger:
-            accommodations_paginator = paginator.page(1)
-        except EmptyPage:
-            accommodations_paginator = paginator.page(paginator.num_pages)
-
-        content = {
-            'title': title,
-            'list_of_accommodations': list_of_accommodations,
-            'country': country,
-            'accommodations': accommodations_paginator,
-            # 'basket': basket,
-        }
-        return render(request, 'mainapp/accommodation_list.html', content)
-
-    hot_offer = get_hot_offer()
-    same_accommodations = get_same_accommodations(hot_offer)
+    # hot_offer = get_hot_offer()
+    # same_accommodations = get_same_accommodations(hot_offer)
 
     content = {
         'title': title,
         'list_of_accommodations': list_of_accommodations,
-        'hot_offer': hot_offer,
-        'same_accommodations': same_accommodations,
+        # 'hot_offer': hot_offer,
+        # 'same_accommodations': same_accommodations,
         # 'basket': basket,
     }
 
@@ -84,14 +84,14 @@ def get_basket(user):
         return []
 
 
-def get_hot_offer():
-    accommodations = Accommodation.objects.all()
+# def get_hot_offer():
+#     accommodations = Accommodation.objects.all()
+#
+#     return random.sample(list(accommodations), 1)[0]
 
-    return random.sample(list(accommodations), 1)[0]
 
-
-def get_same_accommodations(hot_offers):
-    same_offers = Accommodation.objects.filter(
-        country=hot_offers.country).exclude(pk=hot_offers.pk)[:3]
-
-    return same_offers
+# def get_same_accommodations(hot_offers):
+#     same_offers = Accommodation.objects.filter(
+#         country=hot_offers.country).exclude(pk=hot_offers.pk)[:3]
+#
+#     return same_offers
