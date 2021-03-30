@@ -65,7 +65,7 @@ pycodestyle==2.5.0
 pycparser==2.20
 pycryptodome==3.9.7
 pydotplus==2.0.2
-Pygments==2.6.1
+Pygments==2.7.4
 PyJWT==1.7.1
 pylint==2.4.4
 pyls-mypy==0.1.8
